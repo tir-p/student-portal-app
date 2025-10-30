@@ -9,8 +9,7 @@ import { CourseCodePipe } from '../pipes/course-code-pipe-pipe';
   standalone: true,
   imports: [
     CommonModule,
-    AttendanceStatusPipe,
-    CourseCodePipe
+    AttendanceStatusPipe
   ],
   templateUrl: './attendance-component.html',
   styleUrls: ['./attendance-component.scss']
