@@ -1,0 +1,50 @@
+<div class="dashboard-container">
+    <h1>Student Dashboard</h1>
+
+    <!-- Summary Cards -->
+    <div class="summary-cards">
+        <div class="card">
+            <h3>Enrolled Courses</h3>
+            <p class="number">{{dashboardData.totalCourses}}</p>
+        </div>
+        <div class="card">
+            <h3>Current GPA</h3>
+            <p class="number">{{dashboardData.currentGPA}}</p>
+        </div>
+        <div class="card">
+            <h3>Attendance Rate</h3>
+            <p class="number">{{dashboardData.attendanceRate}}%</p>
+        </div>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <section class="navigation-buttons">
+        <h2>Quick Navigation</h2>
+        <div class="button-grid">
+            <a routerLink="/courses" class="nav-button">
+                <i class="fas fa-book"></i>
+                <span>Courses</span>
+            </a>
+            <a routerLink="/grades" class="nav-button">
+                <i class="fas fa-chart-line"></i>
+                <span>Grades</span>
+            </a>
+            <a routerLink="/attendance" class="nav-button">
+                <i class="fas fa-calendar-check"></i>
+                <span>Attendance</span>
+            </a>
+            <a routerLink="/profile" class="nav-button">
+                <i class="fas fa-user"></i>
+                <span>Profile</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Recent Activity -->
+    <section class="recent-activity">
+        <h2>Recent Activity</h2>
+        <div class="activity-list">
+            <!-- Add your recent activity items here -->
+        </div>
+    </section>
+</div>

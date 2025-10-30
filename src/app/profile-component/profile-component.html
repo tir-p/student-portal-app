@@ -1,0 +1,179 @@
+<div class="container py-4">
+  <div class="row">
+    <div class="col-lg-4 mb-4">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body text-center">
+          <div class="mb-3">
+            <img 
+              [src]="student()?.profileImage || 'assets/images/default-avatar.png'" 
+              class="rounded-circle" 
+              width="150" 
+              height="150"
+              alt="Profile"
+            >
+          </div>
+          <h4>{{ student()?.firstName }} {{ student()?.lastName }}</h4>
+          <p class="text-muted mb-1">{{ student()?.studentId }}</p>
+          <p class="text-muted">{{ student()?.major }}</p>
+          
+          <hr>
+          
+          <div class="d-grid gap-2">
+            <button class="btn btn-outline-primary">
+              <i class="fas fa-camera me-2"></i>Change Photo
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card border-0 shadow-sm mt-4">
+        <div class="card-body">
+          <h5 class="mb-3">Quick Stats</h5>
+          <div class="mb-3">
+            <div class="d-flex justify-content-between mb-1">
+              <span class="text-muted">GPA</span>
+              <strong>{{ student()?.gpa | number:'1.2-2' }}</strong>
+            </div>
+          </div>
+          <div class="mb-3">
+            <div class="d-flex justify-content-between mb-1">
+              <span class="text-muted">Year</span>
+              <strong>{{ student()?.year }}</strong>
+            </div>
+          </div>
+          <div class="mb-3">
+            <div class="d-flex justify-content-between mb-1">
+              <span class="text-muted">Enrollment Date</span>
+              <strong>{{ student()?.enrollmentDate | date:'MMM yyyy' }}</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-8">
+      <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white py-3">
+          <div class="d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Profile Information</h5>
+            <button 
+              class="btn btn-sm"
+              [ngClass]="isEditing ? 'btn-secondary' : 'btn-primary'"
+              (click)="toggleEdit()"
+            >
+              <i [class]="isEditing ? 'fas fa-times' : 'fas fa-edit'" class="me-2"></i>
+              {{ isEditing ? 'Cancel' : 'Edit Profile' }}
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label">First Name</label>
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  formControlName="firstName"
+                  [class.is-invalid]="profileForm.get('firstName')?.invalid && profileForm.get('firstName')?.touched"
+                >
+                @if (profileForm.get('firstName')?.invalid && profileForm.get('firstName')?.touched) {
+                  <div class="invalid-feedback">
+                    {{ getErrorMessage('firstName') }}
+                  </div>
+                }
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Last Name</label>
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  formControlName="lastName"
+                  [class.is-invalid]="profileForm.get('lastName')?.invalid && profileForm.get('lastName')?.touched"
+                >
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label">Email</label>
+                <input 
+                  type="email" 
+                  class="form-control" 
+                  formControlName="email"
+                  [class.is-invalid]="profileForm.get('email')?.invalid && profileForm.get('email')?.touched"
+                >
+                @if (profileForm.get('email')?.invalid && profileForm.get('email')?.touched) {
+                  <div class="invalid-feedback">
+                    {{ getErrorMessage('email') }}
+                  </div>
+                }
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Contact Number</label>
+                <input 
+                  type="tel" 
+                  class="form-control" 
+                  formControlName="contactNumber"
+                  [class.is-invalid]="profileForm.get('contactNumber')?.invalid && profileForm.get('contactNumber')?.touched"
+                >
+                @if (profileForm.get('contactNumber')?.invalid && profileForm.get('contactNumber')?.touched) {
+                  <div class="invalid-feedback">
+                    {{ getErrorMessage('contactNumber') }}
+                  </div>
+                }
+              </div>
+            </div>
+
+            <hr class="my-4">
+            <h6 class="mb-3">Address Information</h6>
+
+            <div formGroupName="address">
+              <div class="mb-3">
+                <label class="form-label">Street</label>
+                <input type="text" class="form-control" formControlName="street">
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label class="form-label">City</label>
+                  <input type="text" class="form-control" formControlName="city">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">State</label>
+                  <input type="text" class="form-control" formControlName="state">
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label class="form-label">Zip Code</label>
+                  <input type="text" class="form-control" formControlName="zipCode">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Country</label>
+                  <input type="text" class="form-control" formControlName="country">
+                </div>
+              </div>
+            </div>
+
+            @if (isEditing) {
+              <div class="d-grid gap-2">
+                <button 
+                  type="submit" 
+                  class="btn btn-primary"
+                  [disabled]="profileForm.invalid || loading()"
+                >
+                  @if (loading()) {
+                    <span class="spinner-border spinner-border-sm me-2"></span>
+                  }
+                  Save Changes
+                </button>
+              </div>
+            }
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
