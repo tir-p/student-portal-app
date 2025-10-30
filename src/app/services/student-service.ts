@@ -25,8 +25,8 @@ export class StudentService {
   private mockStudent: Student = {
     id: '1',
     firstName: 'Tirthesh',
-    lastName: 'Patel',
-    email: 'tirthesh.patel@university.mu',
+    lastName: 'Parbutee',
+    email: 'tirthesh.parbutee@university.mu',
     studentId: 'CS202101',
     dateOfBirth: new Date('2002-05-15'),
     enrollmentDate: new Date('2021-09-01'),
