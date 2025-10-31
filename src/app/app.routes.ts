@@ -27,6 +27,13 @@ export const routes: Routes = [
       import('./profile-component/profile-component').then(m => m.ProfileComponent)
   },
   {
+    path: 'courses/:id',
+    loadComponent: () =>
+      import('./course-detail-component/course-detail-component').then(
+        (m) => m.CourseDetailComponent
+      ),
+  },
+  {
     path: '',
     redirectTo: 'dashboard',
     pathMatch: 'full'

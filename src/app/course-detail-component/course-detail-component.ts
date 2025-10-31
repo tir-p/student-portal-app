@@ -9,7 +9,6 @@ import { CreditHoursPipe } from '../pipes/credit-hours-pipe-pipe';
 import { SemesterPipe } from '../pipes/semester-pipe-pipe';
 import { GradeColorPipe } from '../pipes/grade-color-pipe-pipe';
 import { TimeRemainingPipe } from '../pipes/time-remaining-pipe-pipe';
-import { Inject } from '@angular/core';
 
 @Component({
   selector: 'app-course-detail',
@@ -23,7 +22,6 @@ import { Inject } from '@angular/core';
     GradeColorPipe,
     TimeRemainingPipe
   ],
-  providers: [CourseService, GradeService],
   templateUrl: './course-detail-component.html',
   styleUrls: ['./course-detail-component.scss']
 })
@@ -35,7 +33,7 @@ export class CourseDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    @Inject(CourseService) private courseService: CourseService,
+    private courseService: CourseService,
     private gradeService: GradeService
   ) {
     this.loading = this.courseService.loading;

@@ -13,12 +13,16 @@ export class StudentService {
   private errorSignal = signal<string | null>(null);
 
   // Computed signals
+  // Exposes the current student as a readonly signal so consumers can observe changes but not modify directly
   readonly student = this.studentSignal.asReadonly();
+  // Exposes the loading state as a readonly signal for UI to react to loading changes
   readonly loading = this.loadingSignal.asReadonly();
+  // Exposes the error state as a readonly signal for error handling in the UI
   readonly error = this.errorSignal.asReadonly();
+  // Computed signal that returns the student's full name, or an empty string if no student is loaded
   readonly fullName = computed(() => {
-    const student = this.studentSignal();
-    return student ? `${student.firstName} ${student.lastName}` : '';
+    const student = this.studentSignal(); // Get the current student value
+    return student ? `${student.firstName} ${student.lastName}` : ''; // Return full name if student exists, else empty string
   });
 
   // Fake data
@@ -31,7 +35,7 @@ export class StudentService {
     dateOfBirth: new Date('2002-05-15'),
     enrollmentDate: new Date('2021-09-01'),
     major: 'Computer Science',
-    year: 4,
+    year: 3,
     gpa: 3.75,
     contactNumber: '+230-5123-4567',
     profileImage: 'assets/images/default-avatar.png',
@@ -47,33 +51,15 @@ export class StudentService {
   loadStudentProfile(studentId: string): void {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);
-
-    // Simulate API call
-    setTimeout(() => {
-      try {
-        this.studentSignal.set(this.mockStudent);
-        this.loadingSignal.set(false);
-      } catch (error) {
-        this.errorSignal.set('Failed to load student profile');
-        this.loadingSignal.set(false);
-      }
-    }, 500);
+    this.studentSignal.set(this.mockStudent);
+    this.loadingSignal.set(false);
   }
 
-  updateStudentProfile(updatedStudent: Partial<Student>): Observable<Student> {
+  updateStudentProfile(updatedStudent: Student): Observable<Student> {
     this.loadingSignal.set(true);
-
-    const currentStudent = this.studentSignal();
-    const updated = { ...currentStudent, ...updatedStudent } as Student;
-
-    // Simulate API call
-    return of(updated).pipe(
-      delay(500),
-      tap(student => {
-        this.studentSignal.set(student);
-        this.loadingSignal.set(false);
-      })
-    );
+    this.studentSignal.set(updatedStudent);
+    this.loadingSignal.set(false);
+    return of(updatedStudent);
   }
 
   clearStudent(): void {

@@ -1,8 +1,8 @@
-import { CreditHoursPipePipe } from './credit-hours-pipe-pipe';
+import { CreditHoursPipe } from './credit-hours-pipe-pipe';
 
 describe('CreditHoursPipePipe', () => {
   it('create an instance', () => {
-    const pipe = new CreditHoursPipePipe();
+    const pipe = new CreditHoursPipe();
     expect(pipe).toBeTruthy();
   });
 });

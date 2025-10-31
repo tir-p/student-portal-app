@@ -43,7 +43,13 @@ export class GradesComponent implements OnInit {
   }
 
   getGradesForSemester(semester: string): Grade[] {
-    return this.semesterGrades()[semester] || [];
+    // semesterGrades() returns an array like { semester: string, grades: Grade[] }[]
+    const items = this.semesterGrades() as { semester: string; grades: Grade[] }[];
+    const map = items.reduce<Record<string, Grade[]>>((acc, item) => {
+      acc[item.semester] = item.grades;
+      return acc;
+    }, {});
+    return map[semester] ?? [];
   }
 
   calculateSemesterGPA(semester: string): number {

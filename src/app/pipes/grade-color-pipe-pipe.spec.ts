@@ -1,8 +1,8 @@
-import { GradeColorPipePipe } from './grade-color-pipe-pipe';
+import { GradeColorPipe } from './grade-color-pipe-pipe';
 
 describe('GradeColorPipePipe', () => {
   it('create an instance', () => {
-    const pipe = new GradeColorPipePipe();
+    const pipe = new GradeColorPipe();
     expect(pipe).toBeTruthy();
   });
 });

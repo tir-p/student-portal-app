@@ -1,8 +1,8 @@
-import { SemesterPipePipe } from './semester-pipe-pipe';
+import { SemesterPipe } from './semester-pipe-pipe';
 
 describe('SemesterPipePipe', () => {
   it('create an instance', () => {
-    const pipe = new SemesterPipePipe();
+    const pipe = new SemesterPipe();
     expect(pipe).toBeTruthy();
   });
 });

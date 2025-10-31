@@ -1,8 +1,8 @@
-import { CourseCodePipePipe } from './course-code-pipe-pipe';
+import { CourseCodePipe} from './course-code-pipe-pipe';
 
-describe('CourseCodePipePipe', () => {
+describe('CourseCodePipe', () => {
   it('create an instance', () => {
-    const pipe = new CourseCodePipePipe();
+    const pipe = new CourseCodePipe();
     expect(pipe).toBeTruthy();
   });
 });

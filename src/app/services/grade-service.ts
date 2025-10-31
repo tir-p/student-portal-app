@@ -16,20 +16,28 @@ export class GradeService {
 
   readonly currentGPA = computed(() => {
     const grades = this.gradesSignal();
-    return GradeUtil.calculateGPA(
-      grades.map(g => ({ letterGrade: g.letterGrade, credits: g.credits }))
-    );
+    const arr: { letterGrade: string, credits: number }[] = [];
+    for (const g of grades) {
+      arr.push({ letterGrade: g.letterGrade, credits: g.credits });
+    }
+    return GradeUtil.calculateGPA(arr);
   });
 
+  // Returns an array of { semester, grades } objects
   readonly semesterGrades = computed(() => {
     const grades = this.gradesSignal();
-    return grades.reduce((acc, grade) => {
-      if (!acc[grade.semester]) {
-        acc[grade.semester] = [];
+    const semesters: string[] = [];
+    const result: { semester: string, grades: Grade[] }[] = [];
+    for (const grade of grades) {
+      let idx = semesters.indexOf(grade.semester);
+      if (idx === -1) {
+        semesters.push(grade.semester);
+        result.push({ semester: grade.semester, grades: [grade] });
+      } else {
+        result[idx].grades.push(grade);
       }
-      acc[grade.semester].push(grade);
-      return acc;
-    }, {} as Record<string, Grade[]>);
+    }
+    return result;
   });
 
   // Mock data
