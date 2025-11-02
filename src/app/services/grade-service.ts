@@ -169,6 +169,51 @@ export class GradeService {
       letterGrade: 'A-',
       gradePoints: 3.7,
       credits: 3
+    },
+    {
+      id: '4',
+      studentId: '1',
+      courseId: '4',
+      courseName: 'Operating Systems',
+      courseCode: 'CSE-4104',
+      semester: 'fall-2024',
+      assignments: [
+        {
+          id: 'a7',
+          name: 'Process Management Lab',
+          maxScore: 100,
+          earnedScore: 85,
+          weight: 20,
+          dueDate: new Date('2024-10-25'),
+          submittedDate: new Date('2024-10-24'),
+          status: 'graded',
+          feedback: 'Good understanding of process scheduling algorithms'
+        },
+        {
+          id: 'a8',
+          name: 'Memory Management Assignment',
+          maxScore: 100,
+          earnedScore: 80,
+          weight: 20,
+          dueDate: new Date('2024-11-10'),
+          submittedDate: new Date('2024-11-09'),
+          status: 'graded'
+        },
+        {
+          id: 'a9',
+          name: 'File System Project',
+          maxScore: 100,
+          earnedScore: 0,
+          weight: 30,
+          dueDate: new Date('2024-12-10'),
+          status: 'pending'
+        }
+      ],
+      midtermScore: 82,
+      totalScore: 83,
+      letterGrade: 'B',
+      gradePoints: 3.0,
+      credits: 3
     }
   ];
 

@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
 
 /**
@@ -13,6 +13,4 @@ import { MainLayoutComponent } from './layout/main-layout/main-layout.component'
   styleUrl: './app.css'
 })
 export class App {
-  // Application title (currently not used in template)
-  protected readonly title = signal('student-portal-app');
 }
