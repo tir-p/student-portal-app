@@ -2,6 +2,11 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
+/**
+ * Sidebar Component
+ * Displays navigation menu on the left side
+ * Shows active route with routerLinkActive directive
+ */
 @Component({
   selector: 'app-sidebar',
   standalone: true,

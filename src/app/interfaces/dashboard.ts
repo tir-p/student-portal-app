@@ -6,7 +6,7 @@ export interface DashboardStats {
   upcomingAssignments: number;
   activeCourses: number;
   totalCourses: number;
-  recentActivities: [];
+  recentActivities: UpcomingEvent[];
 }
 
 export interface UpcomingEvent {

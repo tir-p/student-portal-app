@@ -2,45 +2,70 @@ import { Injectable, signal, computed } from '@angular/core';
 import { Grade } from '../interfaces/grade';
 import { GradeUtil } from '../../app/utils/grade-util';
 
+/**
+ * Service to manage grade data
+ * Calculates GPA and organizes grades by semester
+ */
 @Injectable({
   providedIn: 'root'
 })
 export class GradeService {
+  // Private signals to store grade data
   private gradesSignal = signal<Grade[]>([]);
   private loadingSignal = signal<boolean>(false);
   private errorSignal = signal<string | null>(null);
 
+  // Public readonly signals for components to use
   readonly grades = this.gradesSignal.asReadonly();
   readonly loading = this.loadingSignal.asReadonly();
   readonly error = this.errorSignal.asReadonly();
 
+  /**
+   * Computed signal: automatically calculates current GPA from all grades
+   * Uses GradeUtil helper to perform the calculation
+   */
   readonly currentGPA = computed(() => {
-    const grades = this.gradesSignal();
-    const arr: { letterGrade: string, credits: number }[] = [];
-    for (const g of grades) {
-      arr.push({ letterGrade: g.letterGrade, credits: g.credits });
+    const allGrades = this.gradesSignal();
+    
+    // Convert grades to format needed for GPA calculation
+    const gradeData: { letterGrade: string, credits: number }[] = [];
+    for (const grade of allGrades) {
+      gradeData.push({ 
+        letterGrade: grade.letterGrade, 
+        credits: grade.credits 
+      });
     }
-    return GradeUtil.calculateGPA(arr);
+    
+    // Use utility function to calculate GPA
+    return GradeUtil.calculateGPA(gradeData);
   });
 
-  // Returns an array of { semester, grades } objects
+  /**
+   * Computed signal: groups grades by semester
+   * Returns an array where each item contains a semester name and its grades
+   */
   readonly semesterGrades = computed(() => {
-    const grades = this.gradesSignal();
-    const semesters: string[] = [];
-    const result: { semester: string, grades: Grade[] }[] = [];
-    for (const grade of grades) {
-      let idx = semesters.indexOf(grade.semester);
-      if (idx === -1) {
-        semesters.push(grade.semester);
-        result.push({ semester: grade.semester, grades: [grade] });
-      } else {
-        result[idx].grades.push(grade);
+    const allGrades = this.gradesSignal();
+    const semesterMap = new Map<string, Grade[]>();
+    
+    // Group grades by semester using a Map
+    for (const grade of allGrades) {
+      if (!semesterMap.has(grade.semester)) {
+        semesterMap.set(grade.semester, []);
       }
+      semesterMap.get(grade.semester)!.push(grade);
     }
+    
+    // Convert Map to array format: [{ semester: string, grades: Grade[] }]
+    const result: { semester: string, grades: Grade[] }[] = [];
+    for (const [semester, grades] of semesterMap) {
+      result.push({ semester, grades });
+    }
+    
     return result;
   });
 
-  // Mock data
+  // Mock grade data - in a real app, this would come from an API
   private mockGrades: Grade[] = [
     {
       id: '1',
@@ -147,16 +172,25 @@ export class GradeService {
     }
   ];
 
+  /**
+   * Loads all grades for the student
+   * Uses setTimeout to simulate API call delay
+   */
   loadGrades(): void {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);
 
+    // Simulate API delay, then set the mock grades
     setTimeout(() => {
       this.gradesSignal.set(this.mockGrades);
       this.loadingSignal.set(false);
     }, 500);
   }
 
+  /**
+   * Finds a grade by course ID
+   * Returns the grade or undefined if not found
+   */
   getGradeByCourseId(courseId: string): Grade | undefined {
     return this.gradesSignal().find(g => g.courseId === courseId);
   }

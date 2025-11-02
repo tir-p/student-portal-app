@@ -61,12 +61,12 @@
                       </span>
                     </td>
                     <td class="text-center">
-                      <button 
+                      <a 
+                        routerLink="/grades/{{ grade.id }}"
                         class="btn btn-sm btn-outline-primary"
-                        (click)="selectedSemester.set(grade.id)"
                       >
                         View Details
-                      </button>
+                      </a>
                     </td>
                   </tr>
                 }

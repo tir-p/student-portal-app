@@ -2,27 +2,35 @@ import { Injectable, signal, computed } from '@angular/core';
 import { Course } from '../interfaces/course';
 import { Observable, of, delay } from 'rxjs';
 
+/**
+ * Service to manage course data
+ * Handles loading courses, filtering active courses, and calculating credits
+ */
 @Injectable({
   providedIn: 'root'
 })
 export class CourseService {
+  // Private signals to store course data
   private coursesSignal = signal<Course[]>([]);
   private loadingSignal = signal<boolean>(false);
   private errorSignal = signal<string | null>(null);
 
+  // Public readonly signals for components to use
   readonly courses = this.coursesSignal.asReadonly();
   readonly loading = this.loadingSignal.asReadonly();
   readonly error = this.errorSignal.asReadonly();
   
+  // Computed signal: automatically filters to show only active courses
   readonly activeCourses = computed(() => 
     this.coursesSignal().filter(c => c.status === 'active')
   );
   
+  // Computed signal: calculates total credit hours from active courses
   readonly totalCredits = computed(() =>
     this.activeCourses().reduce((sum, course) => sum + course.credits, 0)
   );
 
-  // Mock data
+  // Mock course data - in a real app, this would come from an API
   private mockCourses: Course[] = [
     {
       id: '1',
@@ -33,8 +41,8 @@ export class CourseService {
       semester: 'fall-2024',
       instructor: {
         id: 'i1',
-        name: 'Dr. Sarah Johnson',
-        email: 'sarah.johnson@university.mu',
+        name: 'Dr. J Seetohul',
+        email: 'j.seetohul@university.mu',
         department: 'Computer Science',
         officeHours: 'Mon/Wed 2-4 PM'
       },
@@ -55,8 +63,8 @@ export class CourseService {
       semester: 'fall-2024',
       instructor: {
         id: 'i2',
-        name: 'Prof. Michael Chen',
-        email: 'michael.chen@university.mu',
+        name: 'Prof. Jesus',
+        email: 'prof.jesus@university.mu',
         department: 'Computer Science',
         officeHours: 'Tue/Thu 1-3 PM'
       },
@@ -77,8 +85,8 @@ export class CourseService {
       semester: 'fall-2024',
       instructor: {
         id: 'i3',
-        name: 'Dr. Emily Rodriguez',
-        email: 'emily.rodriguez@university.mu',
+        name: 'Dr. Jean Melon',
+        email: 'jean.melon@university.mu',
         department: 'Computer Science',
         officeHours: 'Wed/Fri 10-12 PM'
       },
@@ -93,14 +101,14 @@ export class CourseService {
     {
       id: '4',
       code: 'CSE-4104',
-      name: 'Cybersecurity',
-      description: 'Network security, cryptography, and ethical hacking',
+      name: 'Operating Systems',
+      description: 'OS concepts, process management, memory management, and file systems',
       credits: 3,
       semester: 'fall-2024',
       instructor: {
         id: 'i4',
-        name: 'Dr. James Wilson',
-        email: 'james.wilson@university.mu',
+        name: 'Mr Gavin Sathan',
+        email: 'g.sathan@university.mu',
         department: 'Computer Science',
         officeHours: 'Mon/Thu 3-5 PM'
       },
@@ -114,25 +122,42 @@ export class CourseService {
     }
   ];
 
+  /**
+   * Loads all courses
+   * Uses setTimeout to simulate API call delay
+   */
   loadCourses(): void {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);
 
+    // Simulate API delay, then set the mock courses
     setTimeout(() => {
       this.coursesSignal.set(this.mockCourses);
       this.loadingSignal.set(false);
     }, 600);
   }
 
+  /**
+   * Finds a course by its ID
+   * Returns an Observable with the course or undefined if not found
+   */
   getCourseById(id: string): Observable<Course | undefined> {
     const course = this.coursesSignal().find(c => c.id === id);
     return of(course).pipe(delay(300));
   }
 
+  /**
+   * Enrolls student in a course
+   * In a real app, this would make an API call to enroll
+   */
   enrollInCourse(courseId: string): Observable<boolean> {
     return of(true).pipe(delay(500));
   }
 
+  /**
+   * Drops a course enrollment
+   * In a real app, this would make an API call to drop the course
+   */
   dropCourse(courseId: string): Observable<boolean> {
     return of(true).pipe(delay(500));
   }

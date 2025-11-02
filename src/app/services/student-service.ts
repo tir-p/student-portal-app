@@ -1,31 +1,32 @@
 import { Injectable, signal, computed } from '@angular/core';
 import { Student } from '../interfaces/student';
-import { Observable, of, delay } from 'rxjs';
-import { tap } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
+/**
+ * Service to manage student data
+ * Uses Angular Signals for reactive state management
+ */
 @Injectable({
   providedIn: 'root'
 })
 export class StudentService {
-  // Angular Signals for state management
+  // Private signals to store the actual data
   private studentSignal = signal<Student | null>(null);
   private loadingSignal = signal<boolean>(false);
   private errorSignal = signal<string | null>(null);
 
-  // Computed signals
-  // Exposes the current student as a readonly signal so consumers can observe changes but not modify directly
+  // Public readonly signals - components can read these but not modify them
   readonly student = this.studentSignal.asReadonly();
-  // Exposes the loading state as a readonly signal for UI to react to loading changes
   readonly loading = this.loadingSignal.asReadonly();
-  // Exposes the error state as a readonly signal for error handling in the UI
   readonly error = this.errorSignal.asReadonly();
-  // Computed signal that returns the student's full name, or an empty string if no student is loaded
+  
+  // Computed signal that automatically calculates full name from first and last name
   readonly fullName = computed(() => {
-    const student = this.studentSignal(); // Get the current student value
-    return student ? `${student.firstName} ${student.lastName}` : ''; // Return full name if student exists, else empty string
+    const student = this.studentSignal();
+    return student ? `${student.firstName} ${student.lastName}` : '';
   });
 
-  // Fake data
+  // Mock student data - in a real app, this would come from an API
   private mockStudent: Student = {
     id: '1',
     firstName: 'Tirthesh',
@@ -38,7 +39,7 @@ export class StudentService {
     year: 3,
     gpa: 3.75,
     contactNumber: '+230-5123-4567',
-    profileImage: 'assets/images/default-avatar.png',
+    profileImage: '/assets/images/default-avatar.png',
     address: {
       street: '123 University Street',
       city: 'Reduit',
@@ -48,20 +49,34 @@ export class StudentService {
     }
   };
 
+  /**
+   * Loads a student profile by ID
+   * In a real app, this would fetch from an API
+   */
   loadStudentProfile(studentId: string): void {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);
+    // Set the mock student data
     this.studentSignal.set(this.mockStudent);
     this.loadingSignal.set(false);
   }
 
+  /**
+   * Updates the student profile
+   * Returns an Observable that emits the updated student
+   */
   updateStudentProfile(updatedStudent: Student): Observable<Student> {
     this.loadingSignal.set(true);
+    // Update the student signal with new data
     this.studentSignal.set(updatedStudent);
     this.loadingSignal.set(false);
     return of(updatedStudent);
   }
 
+  /**
+   * Clears the current student data
+   * Useful for logout or reset scenarios
+   */
   clearStudent(): void {
     this.studentSignal.set(null);
     this.errorSignal.set(null);
