@@ -100,15 +100,12 @@ export class ProfileComponent implements OnInit {
    */
   onSubmit(): void {
     if (this.profileForm.valid) {
-      // Update student profile with form data
-      this.studentService.updateStudentProfile(this.profileForm.value)
-        .subscribe(() => {
-          // Exit edit mode after successful update
-          this.isEditing = false;
-          this.profileForm.disable();
-        });
+      this.studentService.updateStudentProfile(this.profileForm.value);
+      this.isEditing = false;
+      this.profileForm.disable();
     }
   }
+
 
   /**
    * Gets error message for a form field

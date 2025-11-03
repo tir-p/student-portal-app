@@ -65,12 +65,10 @@ export class StudentService {
    * Updates the student profile
    * Returns an Observable that emits the updated student
    */
-  updateStudentProfile(updatedStudent: Student): Observable<Student> {
+  updateStudentProfile(updatedStudent: Student): void {
     this.loadingSignal.set(true);
-    // Update the student signal with new data
     this.studentSignal.set(updatedStudent);
     this.loadingSignal.set(false);
-    return of(updatedStudent);
   }
 
   /**

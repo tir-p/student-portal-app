@@ -48,7 +48,7 @@ export class GradeService {
     const allGrades = this.gradesSignal();
     const semesterMap = new Map<string, Grade[]>();
     
-    // Group grades by semester using a Map
+    // Group grades by semester using a Map (used ai for this)
     for (const grade of allGrades) {
       if (!semesterMap.has(grade.semester)) {
         semesterMap.set(grade.semester, []);

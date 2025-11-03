@@ -19,7 +19,7 @@ export class GradeUtil {
     'C-': 1.7,
     'D': 1.0,
     'F': 0.0
-  };
+  }
 
   /**
    * Calculates GPA from an array of grades
