@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 /**
  * Pipe to format semester strings for display
- * Converts format like "fall-2024" to "Fall 2024"
+ * Converts format like "fall-2025" to "Fall 2025"
  * Usage: {{ semester | semester }}
  */
 @Pipe({
@@ -12,8 +12,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class SemesterPipe implements PipeTransform {
   /**
    * Transforms semester string from database format to display format
-   * @param semester - Semester in format "term-year" (e.g., "fall-2024")
-   * @returns Formatted semester string (e.g., "Fall 2024")
+   * @param semester - Semester in format "term-year" (e.g., "fall-2025")
+   * @returns Formatted semester string (e.g., "Fall 2025")
    */
   transform(semester: string): string {
     // Split semester into term and year parts

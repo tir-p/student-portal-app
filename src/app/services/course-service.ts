@@ -38,7 +38,7 @@ export class CourseService {
       name: 'Advanced Software Engineering',
       description: 'Design patterns, architecture, and best practices',
       credits: 3,
-      semester: 'fall-2024',
+      semester: 'fall-2025',
       instructor: {
         id: 'i1',
         name: 'Dr. J Seetohul',
@@ -60,7 +60,7 @@ export class CourseService {
       name: 'Machine Learning',
       description: 'Introduction to ML algorithms and applications',
       credits: 4,
-      semester: 'fall-2024',
+      semester: 'fall-2025',
       instructor: {
         id: 'i2',
         name: 'Prof. Jesus',
@@ -82,7 +82,7 @@ export class CourseService {
       name: 'Cloud Computing',
       description: 'Cloud infrastructure, services, and deployment',
       credits: 3,
-      semester: 'fall-2024',
+      semester: 'fall-2025',
       instructor: {
         id: 'i3',
         name: 'Dr. Jean Melon',
@@ -104,7 +104,7 @@ export class CourseService {
       name: 'Operating Systems',
       description: 'OS concepts, process management, memory management, and file systems',
       credits: 3,
-      semester: 'fall-2024',
+      semester: 'fall-2025',
       instructor: {
         id: 'i4',
         name: 'Mr Gavin Sathan',

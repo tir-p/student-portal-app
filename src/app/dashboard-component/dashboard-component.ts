@@ -104,7 +104,7 @@ export class DashboardComponent implements OnInit {
      * Gets the current semester from active courses
      * Returns the most common semester among active courses
      * @param activeCourses - Array of active courses
-     * @returns Formatted semester string (e.g., "Fall 2024")
+    * @returns Formatted semester string (e.g., "Fall 2025")
      */
     private getCurrentSemester(activeCourses: any[]): string {
         if (activeCourses.length === 0) return '';

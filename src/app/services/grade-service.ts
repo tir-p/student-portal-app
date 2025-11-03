@@ -73,7 +73,7 @@ export class GradeService {
       courseId: '1',
       courseName: 'Advanced Software Engineering',
       courseCode: 'CSE-4101',
-      semester: 'fall-2024',
+  semester: 'fall-2025',
       assignments: [
         {
           id: 'a1',
@@ -81,8 +81,8 @@ export class GradeService {
           maxScore: 100,
           earnedScore: 92,
           weight: 20,
-          dueDate: new Date('2024-10-15'),
-          submittedDate: new Date('2024-10-14'),
+          dueDate: new Date('2025-10-15'),
+          submittedDate: new Date('2025-10-14'),
           status: 'graded',
           feedback: 'Excellent work on implementing the Factory pattern!'
         },
@@ -92,8 +92,8 @@ export class GradeService {
           maxScore: 100,
           earnedScore: 88,
           weight: 20,
-          dueDate: new Date('2024-11-05'),
-          submittedDate: new Date('2024-11-05'),
+          dueDate: new Date('2025-11-05'),
+          submittedDate: new Date('2025-11-05'),
           status: 'graded'
         },
         {
@@ -102,7 +102,7 @@ export class GradeService {
           maxScore: 100,
           earnedScore: 0,
           weight: 40,
-          dueDate: new Date('2024-12-15'),
+          dueDate: new Date('2025-12-15'),
           status: 'pending'
         }
       ],
@@ -118,7 +118,7 @@ export class GradeService {
       courseId: '2',
       courseName: 'Machine Learning',
       courseCode: 'CSE-4102',
-      semester: 'fall-2024',
+  semester: 'fall-2025',
       assignments: [
         {
           id: 'a4',
@@ -126,8 +126,8 @@ export class GradeService {
           maxScore: 100,
           earnedScore: 95,
           weight: 15,
-          dueDate: new Date('2024-10-20'),
-          submittedDate: new Date('2024-10-19'),
+          dueDate: new Date('2025-10-20'),
+          submittedDate: new Date('2025-10-19'),
           status: 'graded'
         },
         {
@@ -136,7 +136,7 @@ export class GradeService {
           maxScore: 100,
           earnedScore: 0,
           weight: 35,
-          dueDate: new Date('2024-11-25'),
+          dueDate: new Date('2025-11-25'),
           status: 'pending'
         }
       ],
@@ -152,7 +152,7 @@ export class GradeService {
       courseId: '3',
       courseName: 'Cloud Computing',
       courseCode: 'CSE-4103',
-      semester: 'fall-2024',
+  semester: 'fall-2025',
       assignments: [
         {
           id: 'a6',
@@ -160,8 +160,8 @@ export class GradeService {
           maxScore: 100,
           earnedScore: 90,
           weight: 25,
-          dueDate: new Date('2024-10-30'),
-          submittedDate: new Date('2024-10-29'),
+          dueDate: new Date('2025-10-30'),
+          submittedDate: new Date('2025-10-29'),
           status: 'graded'
         }
       ],
@@ -176,7 +176,7 @@ export class GradeService {
       courseId: '4',
       courseName: 'Operating Systems',
       courseCode: 'CSE-4104',
-      semester: 'fall-2024',
+  semester: 'fall-2025',
       assignments: [
         {
           id: 'a7',
@@ -184,8 +184,8 @@ export class GradeService {
           maxScore: 100,
           earnedScore: 85,
           weight: 20,
-          dueDate: new Date('2024-10-25'),
-          submittedDate: new Date('2024-10-24'),
+          dueDate: new Date('2025-10-25'),
+          submittedDate: new Date('2025-10-24'),
           status: 'graded',
           feedback: 'Good understanding of process scheduling algorithms'
         },
@@ -195,8 +195,8 @@ export class GradeService {
           maxScore: 100,
           earnedScore: 80,
           weight: 20,
-          dueDate: new Date('2024-11-10'),
-          submittedDate: new Date('2024-11-09'),
+          dueDate: new Date('2025-11-10'),
+          submittedDate: new Date('2025-11-09'),
           status: 'graded'
         },
         {
@@ -205,7 +205,7 @@ export class GradeService {
           maxScore: 100,
           earnedScore: 0,
           weight: 30,
-          dueDate: new Date('2024-12-10'),
+          dueDate: new Date('2025-12-10'),
           status: 'pending'
         }
       ],
