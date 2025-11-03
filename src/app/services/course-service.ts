@@ -1,6 +1,5 @@
 import { Injectable, signal, computed } from '@angular/core';
 import { Course } from '../interfaces/course';
-import { Observable, of, delay } from 'rxjs';
 
 /**
  * Service to manage course data
@@ -139,26 +138,25 @@ export class CourseService {
 
   /**
    * Finds a course by its ID
-   * Returns an Observable with the course or undefined if not found
+   * Returns the course or undefined if not found
    */
-  getCourseById(id: string): Observable<Course | undefined> {
-    const course = this.coursesSignal().find(c => c.id === id);
-    return of(course).pipe(delay(300));
+  getCourseById(id: string): Course | undefined {
+    return this.coursesSignal().find(c => c.id === id);
   }
 
   /**
    * Enrolls student in a course
    * In a real app, this would make an API call to enroll
    */
-  enrollInCourse(courseId: string): Observable<boolean> {
-    return of(true).pipe(delay(500));
+  enrollInCourse(courseId: string): boolean {
+    return true;
   }
 
   /**
    * Drops a course enrollment
    * In a real app, this would make an API call to drop the course
    */
-  dropCourse(courseId: string): Observable<boolean> {
-    return of(true).pipe(delay(500));
+  dropCourse(courseId: string): boolean {
+    return true;
   }
 }

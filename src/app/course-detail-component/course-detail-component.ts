@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CourseService } from '../services/course-service';
@@ -9,6 +9,7 @@ import { CreditHoursPipe } from '../pipes/credit-hours-pipe-pipe';
 import { SemesterPipe } from '../pipes/semester-pipe-pipe';
 import { GradeColorPipe } from '../pipes/grade-color-pipe-pipe';
 import { TimeRemainingPipe } from '../pipes/time-remaining-pipe-pipe';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 /**
  * Course Detail Component
@@ -33,11 +34,17 @@ import { TimeRemainingPipe } from '../pipes/time-remaining-pipe-pipe';
 export class CourseDetailComponent implements OnInit {
   // Connect to service loading state
   readonly loading;
-  
-  // Signal to store the current course data
-  course = signal<Course | undefined>(undefined);
-  // Signal to store the course ID from the route
-  courseId = signal<string>('');
+
+  // Route paramMap as a signal; avoids direct Observable usage
+  private paramMapSignal;
+
+  // Course ID derived from route paramMap
+  readonly courseId = computed<string>(() => this.paramMapSignal().get('id') ?? '');
+
+  // Current course derived from service state and route id
+  readonly course = computed<Course | undefined>(() =>
+    this.courseService.courses().find(c => c.id === this.courseId())
+  );
 
   constructor(
     private route: ActivatedRoute,
@@ -45,28 +52,19 @@ export class CourseDetailComponent implements OnInit {
     private gradeService: GradeService
   ) {
     this.loading = this.courseService.loading;
+    this.paramMapSignal = toSignal(this.route.paramMap, {
+      initialValue: this.route.snapshot.paramMap
+    });
   }
 
   /**
    * Called when component initializes
-   * Subscribes to route parameters to get course ID and load course details
+   * Ensures courses are loaded
    */
   ngOnInit(): void {
-    // Get course ID from the URL route parameter
-    this.route.params.subscribe(params => {
-      this.courseId.set(params['id']);
-      this.loadCourseDetails();
-    });
-  }
-
-  /**
-   * Loads course details from the service
-   * Called whenever the course ID changes
-   */
-  private loadCourseDetails(): void {
-    this.courseService.getCourseById(this.courseId()).subscribe(course => {
-      this.course.set(course);
-    });
+    if (this.courseService.courses().length === 0) {
+      this.courseService.loadCourses();
+    }
   }
 
   /**

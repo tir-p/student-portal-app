@@ -1,6 +1,5 @@
 import { Injectable, signal, computed } from '@angular/core';
 import { Student } from '../interfaces/student';
-import { Observable, of } from 'rxjs';
 
 /**
  * Service to manage student data

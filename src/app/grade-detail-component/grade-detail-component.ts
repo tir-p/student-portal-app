@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { GradeService } from '../services/grade-service';
@@ -6,6 +6,7 @@ import { Grade } from '../interfaces/grade';
 import { GradeColorPipe } from '../pipes/grade-color-pipe-pipe';
 import { SemesterPipe } from '../pipes/semester-pipe-pipe';
 import { TimeRemainingPipe } from '../pipes/time-remaining-pipe-pipe';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 /**
  * Grade Detail Component
@@ -26,10 +27,14 @@ import { TimeRemainingPipe } from '../pipes/time-remaining-pipe-pipe';
   styleUrls: ['./grade-detail-component.scss']
 })
 export class GradeDetailComponent implements OnInit {
-  // Signal to store the current grade data
-  grade = signal<Grade | undefined>(undefined);
-  // Signal to store the grade ID from the route
-  gradeId = signal<string>('');
+  // Route paramMap as a signal; avoids direct Observable usage
+  private paramMapSignal;
+  // Grade ID derived from route paramMap
+  readonly gradeId = computed<string>(() => this.paramMapSignal().get('id') ?? '');
+  // Current grade derived from service state and route id
+  readonly grade = computed<Grade | undefined>(() =>
+    this.gradeService.grades().find(g => g.id === this.gradeId())
+  );
   // Connect to service loading state
   readonly loading;
 
@@ -38,45 +43,19 @@ export class GradeDetailComponent implements OnInit {
     private gradeService: GradeService
   ) {
     this.loading = this.gradeService.loading;
+    this.paramMapSignal = toSignal(this.route.paramMap, {
+      initialValue: this.route.snapshot.paramMap
+    });
   }
 
   /**
    * Called when component initializes
-   * Subscribes to route parameters to get grade ID and load grade details
+   * Ensures grades are loaded
    */
   ngOnInit(): void {
-    // Get grade ID from the URL route parameter
-    this.route.params.subscribe(params => {
-      this.gradeId.set(params['id']);
-      this.loadGradeDetails();
-    });
-
     // Load grades if they haven't been loaded yet
     if (this.gradeService.grades().length === 0) {
       this.gradeService.loadGrades();
-    }
-  }
-
-  /**
-   * Loads grade details from the service
-   * Finds the grade by ID from the grades array
-   * Waits for grades to load if needed
-   */
-  private loadGradeDetails(): void {
-    // Try to find the grade immediately
-    const allGrades = this.gradeService.grades();
-    const grade = allGrades.find(g => g.id === this.gradeId());
-    
-    if (grade) {
-      // Grade found, set it
-      this.grade.set(grade);
-    } else if (allGrades.length === 0) {
-      // Grades not loaded yet, wait for them to load
-      setTimeout(() => {
-        const grades = this.gradeService.grades();
-        const foundGrade = grades.find(g => g.id === this.gradeId());
-        this.grade.set(foundGrade);
-      }, 600);
     }
   }
 
