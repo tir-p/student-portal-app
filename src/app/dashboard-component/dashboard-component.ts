@@ -205,9 +205,33 @@ export class DashboardComponent implements OnInit {
             }
         }
         
-        // Sort by date (most recent first) and return top 5
+        // Sort by date (most recent first) and return top 4
         return activities
-            .sort((a, b) => b.date.getTime() - a.date.getTime())
-            .slice(0, 5);
+            .sort((a, b) => b.date.getTime() - a.date.getTime()) 
+            .slice(0, 4);
+        /* 
+        What it does, step by step:
+
+    - activities is an array of activity objects built earlier, each with a date property (a Date instance).
+
+    - .sort((a, b) => b.date.getTime() - a.date.getTime()):
+        - Sorts the activities in descending order by date (most recent first).
+
+        - date.getTime() converts a Date to a numeric timestamp (milliseconds since epoch), which makes comparison straightforward.
+
+        - Using b - a ensures newer dates (larger timestamps) come before older ones.
+
+
+    - .slice(0, 4):
+        - After sorting, it takes only the first 4 items.
+
+        - This limits the list to the top 4 most recent activities.
+
+
+    Net effect:
+
+
+    - You get up to five most recent graded assignment activities from the last 30 days, ordered newest to oldest.
+        */
     }
 }

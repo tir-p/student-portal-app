@@ -44,7 +44,11 @@ export class GradeUtil {
     }
 
     // GPA = total points / total credits (rounded to 2 decimal places)
-    return totalCredits > 0 ? parseFloat((totalPoints / totalCredits).toFixed(2)) : 0;
+      if (totalCredits > 0) {
+        return parseFloat((totalPoints / totalCredits).toFixed(2));
+      } else {
+        return 0;
+      }
   }
 
   /**

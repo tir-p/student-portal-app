@@ -23,6 +23,13 @@ export class ProfileComponent implements OnInit {
   // Connect to service signals
   readonly student;
   readonly loading;
+
+  /*
+  why use readonly signasl?
+  readonly ensures the component treats service-provided signals as read-only references, 
+  avoiding accidental reassignment and making intent explicit. 
+  You still get reactive updates as the service writes to those signals.
+  */
   
   // Tracks whether user is in edit mode
   isEditing = false;
