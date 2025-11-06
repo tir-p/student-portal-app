@@ -1,14 +1,14 @@
 import { Component, OnInit, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { CourseService } from '../services/course-service';
-import { GradeService } from '../services/grade-service';
-import { Course } from '../interfaces/course';
-import { CourseCodePipe } from '../pipes/course-code-pipe-pipe';
-import { CreditHoursPipe } from '../pipes/credit-hours-pipe-pipe';
-import { SemesterPipe } from '../pipes/semester-pipe-pipe';
-import { GradeColorPipe } from '../pipes/grade-color-pipe-pipe';
-import { TimeRemainingPipe } from '../pipes/time-remaining-pipe-pipe';
+import { CourseService } from '../../../services/course-service';
+import { GradeService } from '../../../services/grade-service';
+import { Course } from '../../../interfaces/course';
+import { CourseCodePipe } from '../../../pipes/course-code-pipe-pipe';
+import { CreditHoursPipe } from '../../../pipes/credit-hours-pipe-pipe';
+import { SemesterPipe } from '../../../pipes/semester-pipe-pipe';
+import { GradeColorPipe } from '../../../pipes/grade-color-pipe-pipe';
+import { TimeRemainingPipe } from '../../../pipes/time-remaining-pipe-pipe';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 /**

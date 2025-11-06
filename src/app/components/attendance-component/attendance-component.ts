@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AttendanceService } from '../services/attendance-service';
-import { AttendanceStatusPipe } from '../pipes/attendance-status-pipe-pipe';
+import { AttendanceService } from '../../services/attendance-service';
+import { AttendanceStatusPipe } from '../../pipes/attendance-status-pipe-pipe';
 
 /**
  * Attendance Component

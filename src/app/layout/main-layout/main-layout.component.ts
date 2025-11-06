@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { NavbarComponent } from '../../navbar-component/navbar-component';
-import { SidebarComponent } from '../../sidebar-component/sidebar-component';
+import { NavbarComponent } from '../../components/navbar-component/navbar-component';
+import { SidebarComponent } from '../../components/sidebar-component/sidebar-component';
 import { StudentService } from '../../services/student-service';
 
 /**

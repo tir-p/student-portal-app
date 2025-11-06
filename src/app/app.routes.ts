@@ -10,26 +10,26 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     loadComponent: () =>
-      import('./dashboard-component/dashboard-component').then(m => m.DashboardComponent)
+      import('./components/dashboard-component/dashboard-component').then(m => m.DashboardComponent)
   },
   // Courses list route - shows all available courses
   {
     path: 'courses',
     loadComponent: () =>
-      import('./course-list-component/course-list-component').then(m => m.CourseListComponent)
+      import('./components/course-list-component/course-list-component').then(m => m.CourseListComponent)
   },
   // Grades route - displays student grades
   {
     path: 'grades',
     loadComponent: () =>
-      import('./grades-component/grades-component').then(m => m.GradesComponent)
+      import('./components/grades-component/grades-component').then(m => m.GradesComponent)
   },
   // Grade detail route - shows detailed info about a specific grade
   // :id is a route parameter (e.g., /grades/1)
   {
     path: 'grades/:id',
     loadComponent: () =>
-      import('./grade-detail-component/grade-detail-component').then(
+      import('./components/grade-detail-component/grade-detail-component').then(
         (m) => m.GradeDetailComponent
       ),
   },
@@ -37,20 +37,20 @@ export const routes: Routes = [
   {
     path: 'attendance',
     loadComponent: () =>
-      import('./attendance-component/attendance-component').then(m => m.AttendanceComponent)
+      import('./components/attendance-component/attendance-component').then(m => m.AttendanceComponent)
   },
   // Profile route - student profile page
   {
     path: 'profile',
     loadComponent: () =>
-      import('./profile-component/profile-component').then(m => m.ProfileComponent)
+      import('./components/profile-component/profile-component').then(m => m.ProfileComponent)
   },
   // Course detail route - shows detailed info about a specific course
   // :id is a route parameter (e.g., /courses/1)
   {
     path: 'courses/:id',
     loadComponent: () =>
-      import('./course-detail-component/course-detail-component').then(
+      import('./components/attendance-component/course-detail-component/course-detail-component').then(
         (m) => m.CourseDetailComponent
       ),
   },

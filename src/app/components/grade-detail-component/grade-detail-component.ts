@@ -1,11 +1,11 @@
 import { Component, OnInit, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { GradeService } from '../services/grade-service';
-import { Grade } from '../interfaces/grade';
-import { GradeColorPipe } from '../pipes/grade-color-pipe-pipe';
-import { SemesterPipe } from '../pipes/semester-pipe-pipe';
-import { TimeRemainingPipe } from '../pipes/time-remaining-pipe-pipe';
+import { GradeService } from '../../services/grade-service';
+import { Grade } from '../../interfaces/grade';
+import { GradeColorPipe } from '../../pipes/grade-color-pipe-pipe';
+import { SemesterPipe } from '../../pipes/semester-pipe-pipe';
+import { TimeRemainingPipe } from '../../pipes/time-remaining-pipe-pipe';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 /**

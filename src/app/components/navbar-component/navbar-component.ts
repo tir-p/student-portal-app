@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { StudentService } from '../services/student-service';
+import { StudentService } from '../../services/student-service';
 // RouterLink not used in template; remove to avoid NG8113 warning
 
 /**

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { DashboardStats, UpcomingEvent } from '../interfaces/dashboard';
-import { StudentService } from '../services/student-service';
-import { CourseService } from '../services/course-service';
-import { AttendanceService } from '../services/attendance-service';
-import { GradeService } from '../services/grade-service';
+import { DashboardStats, UpcomingEvent } from '../../interfaces/dashboard';
+import { StudentService } from '../../services/student-service';
+import { CourseService } from '../../services/course-service';
+import { AttendanceService } from '../../services/attendance-service';
+import { GradeService } from '../../services/grade-service';
 
 /**
  * Dashboard Component

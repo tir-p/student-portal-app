@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { StudentService } from '../services/student-service';
-import { ValidationUtil } from '../utils/validation-util';
+import { StudentService } from '../../services/student-service';
+import { ValidationUtil } from '../../utils/validation-util';
 
 /**
  * Profile Component

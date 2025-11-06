@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { CourseService } from '../services/course-service';
-import { CourseCodePipe } from '../pipes/course-code-pipe-pipe';
-import { CreditHoursPipe } from '../pipes/credit-hours-pipe-pipe';
+import { CourseService } from '../../services/course-service';
+import { CourseCodePipe } from '../../pipes/course-code-pipe-pipe';
+import { CreditHoursPipe } from '../../pipes/credit-hours-pipe-pipe';
 
 /**
  * Course List Component

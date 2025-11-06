@@ -1,10 +1,10 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { GradeService } from '../services/grade-service';
-import { Grade } from '../interfaces/grade';
-import { GradeColorPipe } from '../pipes/grade-color-pipe-pipe';
-import { SemesterPipe } from '../pipes/semester-pipe-pipe';
+import { GradeService } from '../../services/grade-service';
+import { Grade } from '../../interfaces/grade';
+import { GradeColorPipe } from '../../pipes/grade-color-pipe-pipe';
+import { SemesterPipe } from '../../pipes/semester-pipe-pipe';
 
 /**
  * Grades Component
