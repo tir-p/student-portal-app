@@ -199,30 +199,36 @@
             </h5>
           </div>
           <div class="card-body">
-            <div class="text-center mb-3">
-              <div class="instructor-avatar mx-auto mb-3">
-                <i class="fas fa-user-circle fs-1 text-primary"></i>
-              </div>
-              <h5 class="mb-1">{{ course()!.instructor.name }}</h5>
-              <p class="text-muted mb-0">{{ course()!.instructor.department }}</p>
-            </div>
-            <hr>
-            <div class="info-list">
-              <div class="info-item mb-3">
-                <small class="text-muted d-block">Email</small>
-                <a [href]="'mailto:' + course()!.instructor.email" class="text-decoration-none">
-                  <i class="fas fa-envelope me-2"></i>{{ course()!.instructor.email }}
-                </a>
-              </div>
-              @if (course()!.instructor.officeHours) {
-                <div class="info-item mb-3">
-                  <small class="text-muted d-block">Office Hours</small>
-                  <p class="mb-0">
-                    <i class="fas fa-clock me-2"></i>{{ course()!.instructor.officeHours }}
-                  </p>
+            @if (course()?.instructor) {
+              <div class="text-center mb-3">
+                <div class="instructor-avatar mx-auto mb-3">
+                  <i class="fas fa-user-circle fs-1 text-primary"></i>
                 </div>
-              }
-            </div>
+                <h5 class="mb-1">{{ course()!.instructor!.name }}</h5>
+                <p class="text-muted mb-0">{{ course()!.instructor!.department }}</p>
+              </div>
+              <hr>
+              <div class="info-list">
+                <div class="info-item mb-3">
+                  <small class="text-muted d-block">Email</small>
+                  <a [href]="'mailto:' + course()!.instructor!.email" class="text-decoration-none">
+                    <i class="fas fa-envelope me-2"></i>{{ course()!.instructor!.email }}
+                  </a>
+                </div>
+                @if (course()!.instructor!.officeHours) {
+                  <div class="info-item mb-3">
+                    <small class="text-muted d-block">Office Hours</small>
+                    <p class="mb-0">
+                      <i class="fas fa-clock me-2"></i>{{ course()!.instructor!.officeHours }}
+                    </p>
+                  </div>
+                }
+              </div>
+            } @else {
+              <div class="text-center text-muted">
+                <p>Instructor information not available</p>
+              </div>
+            }
             <div class="d-grid gap-2 mt-3">
               <button class="btn btn-outline-primary btn-sm">
                 <i class="fas fa-paper-plane me-2"></i>Send Message

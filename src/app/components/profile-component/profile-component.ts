@@ -70,11 +70,11 @@ export class ProfileComponent implements OnInit {
       ],
       // Nested form group for address fields
       address: this.fb.group({
-        street: [student?.address.street || '', Validators.required],
-        city: [student?.address.city || '', Validators.required],
-        state: [student?.address.state || '', Validators.required],
-        zipCode: [student?.address.zipCode || '', Validators.required],
-        country: [student?.address.country || '', Validators.required]
+        street: [student?.address?.street || '', Validators.required],
+        city: [student?.address?.city || '', Validators.required],
+        state: [student?.address?.state || '', Validators.required],
+        zipCode: [student?.address?.zipCode || '', Validators.required],
+        country: [student?.address?.country || '', Validators.required]
       })
     });
 
@@ -106,8 +106,10 @@ export class ProfileComponent implements OnInit {
    * Updates student profile if form is valid
    */
   onSubmit(): void {
-    if (this.profileForm.valid) {
-      this.studentService.updateStudentProfile(this.profileForm.value);
+    if (this.profileForm.valid && this.student()) {
+      const studentId = this.student()!.id;
+      const updatedStudent = { ...this.student()!, ...this.profileForm.value };
+      this.studentService.updateStudentProfile(studentId, updatedStudent);
       this.isEditing = false;
       this.profileForm.disable();
     }

@@ -38,8 +38,11 @@ export class CourseDetailComponent implements OnInit {
   // Route paramMap as a signal; avoids direct Observable usage
   private paramMapSignal;
 
-  // Course ID derived from route paramMap
-  readonly courseId = computed<string>(() => this.paramMapSignal().get('id') ?? '');
+  // Course ID derived from route paramMap (converted to number)
+  readonly courseId = computed<number>(() => {
+    const id = this.paramMapSignal().get('id');
+    return id ? Number(id) : 0;
+  });
 
   // Current course derived from service state and route id
   readonly course = computed<Course | undefined>(() =>

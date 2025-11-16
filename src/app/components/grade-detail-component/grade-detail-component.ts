@@ -29,8 +29,11 @@ import { toSignal } from '@angular/core/rxjs-interop';
 export class GradeDetailComponent implements OnInit {
   // Route paramMap as a signal; avoids direct Observable usage
   private paramMapSignal;
-  // Grade ID derived from route paramMap
-  readonly gradeId = computed<string>(() => this.paramMapSignal().get('id') ?? '');
+  // Grade ID derived from route paramMap (converted to number)
+  readonly gradeId = computed<number>(() => {
+    const id = this.paramMapSignal().get('id');
+    return id ? Number(id) : 0;
+  });
   // Current grade derived from service state and route id
   readonly grade = computed<Grade | undefined>(() =>
     this.gradeService.grades().find(g => g.id === this.gradeId())
