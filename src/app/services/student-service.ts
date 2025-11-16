@@ -1,5 +1,7 @@
 import { Injectable, signal, computed } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Student } from '../interfaces/student';
+import { API_CONFIG } from '../config/api.config';
 
 /**
  * Service to manage student data
@@ -25,49 +27,60 @@ export class StudentService {
     return student ? `${student.firstName} ${student.lastName}` : '';
   });
 
-  // Mock student data - in a real app, this would come from an API
-  private mockStudent: Student = {
-    id: '1',
-    firstName: 'Tirthesh',
-    lastName: 'Parbutee',
-    email: 'tirthesh.parbutee@university.mu',
-    studentId: 'CS202101',
-    dateOfBirth: new Date('2003-10-22'),
-    enrollmentDate: new Date('2023-06-01'),
-    major: 'Computer Science',
-    year: 3,
-    gpa: 3.75,
-    contactNumber: '+230-5123-4567',
-    profileImage: '/assets/images/default-avatar.png',
-    address: {
-      street: '123 University Street',
-      city: 'Reduit',
-      state: 'Moka',
-      zipCode: '80837',
-      country: 'Mauritius'
-    }
-  };
+  constructor(private http: HttpClient) {}
 
   /**
-   * Loads a student profile by ID
-   * In a real app, this would fetch from an API
+   * Loads a student profile by ID from the API
    */
-  loadStudentProfile(studentId: string): void {
+  loadStudentProfile(studentId: number | string): void {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);
-    // Set the mock student data
-    this.studentSignal.set(this.mockStudent);
-    this.loadingSignal.set(false);
+    
+    this.http.get<Student>(`${API_CONFIG.baseUrl}/Student/${studentId}`).subscribe({
+      next: (student) => {
+        // Convert date strings to Date objects if needed
+        if (typeof student.dateOfBirth === 'string') {
+          student.dateOfBirth = new Date(student.dateOfBirth);
+        }
+        if (typeof student.enrollmentDate === 'string') {
+          student.enrollmentDate = new Date(student.enrollmentDate);
+        }
+        this.studentSignal.set(student);
+        this.loadingSignal.set(false);
+      },
+      error: (error) => {
+        this.errorSignal.set(error.message || 'Failed to load student profile');
+        this.loadingSignal.set(false);
+        console.error('Error loading student profile:', error);
+      }
+    });
   }
 
   /**
-   * Updates the student profile
-   * Returns an Observable that emits the updated student
+   * Updates the student profile via API
    */
-  updateStudentProfile(updatedStudent: Student): void {
+  updateStudentProfile(studentId: number, updatedStudent: Student): void {
     this.loadingSignal.set(true);
-    this.studentSignal.set(updatedStudent);
-    this.loadingSignal.set(false);
+    this.errorSignal.set(null);
+    
+    this.http.put<Student>(`${API_CONFIG.baseUrl}/Student/${studentId}`, updatedStudent).subscribe({
+      next: (student) => {
+        // Convert date strings to Date objects if needed
+        if (typeof student.dateOfBirth === 'string') {
+          student.dateOfBirth = new Date(student.dateOfBirth);
+        }
+        if (typeof student.enrollmentDate === 'string') {
+          student.enrollmentDate = new Date(student.enrollmentDate);
+        }
+        this.studentSignal.set(student);
+        this.loadingSignal.set(false);
+      },
+      error: (error) => {
+        this.errorSignal.set(error.message || 'Failed to update student profile');
+        this.loadingSignal.set(false);
+        console.error('Error updating student profile:', error);
+      }
+    });
   }
 
   /**
