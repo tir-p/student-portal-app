@@ -39,14 +39,14 @@
 .navigation-buttons {
     margin-top: 2rem;
     padding: 1.5rem;
-    background: white;
+    background: rgb(255, 255, 255);
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
     h2 {
         margin-bottom: 1rem;
         font-size: 1.25rem;
-        color: #333;
+        color: #494242;
     }
 }
 
@@ -64,24 +64,33 @@
     background: #f8f9fa;
     border-radius: 8px;
     text-decoration: none;
-    color: #333;
-    transition: transform 0.2s, box-shadow 0.2s;
-
-    &:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    i {
-        font-size: 1.5rem;
-        margin-bottom: 0.5rem;
-    }
-
-    span {
-        font-size: 1rem;
-        font-weight: 500;
-    }
+    color: #3a3232;
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+    cursor: pointer;              /* 👈 Makes it look clickable */
+    border: 1px solid #e0e0e0;    /* 👈 Adds button-like border */
 }
+
+.nav-button:hover {
+    transform: translateY(-3px);   /* 👈 Slight lift */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    background-color: #ffffff;     /* 👈 Makes hover more obvious */
+}
+
+.nav-button:active {
+    transform: scale(0.97);        /* 👈 Press effect */
+}
+
+.nav-button i {
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+    pointer-events: none;          /* 👈 Prevents icons blocking clicks */
+}
+
+.nav-button span {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
 
 .recent-activity {
     margin-top: 2rem;

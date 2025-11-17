@@ -31,7 +31,7 @@
           <div class="d-flex justify-content-between align-items-center">
             <h5 class="mb-0">{{ semester | semester }}</h5>
             <span class="badge bg-primary">
-              GPA: {{ calculateSemesterGPA(semester) | number:'1.2-2' }}
+              GPA: {{ currentGPA()| number:'1.2-2' }}
             </span>
           </div>
         </div>
@@ -56,8 +56,8 @@
                     <td class="text-center">{{ grade.credits }}</td>
                     <td class="text-center">{{ grade.totalScore | number:'1.0-0' }}%</td>
                     <td class="text-center">
-                      <span class="fw-bold" [ngClass]="grade.letterGrade | gradeColor">
-                        {{ grade.letterGrade }}
+                      <span class="fw-bold" [ngClass]="grade.letterGrade | gradeColor ">
+                        {{ grade.letterGrade.toUpperCase() }}
                       </span>
                     </td>
                     <td class="text-center">

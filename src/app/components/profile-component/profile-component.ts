@@ -58,7 +58,7 @@ export class ProfileComponent implements OnInit {
    */
   private initializeForm(): void {
     const student = this.student();
-    
+    console.log(student);
     // Create form group with all student fields and validation rules
     this.profileForm = this.fb.group({
       firstName: [student?.firstName || '', [Validators.required, Validators.minLength(2)]],

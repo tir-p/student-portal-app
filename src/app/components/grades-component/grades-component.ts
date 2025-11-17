@@ -50,6 +50,7 @@ export class GradesComponent implements OnInit {
     if (this.grades().length === 0) {
       this.gradeService.loadGrades();
     }
+    console.log(this.grades);
   }
 
   /**
