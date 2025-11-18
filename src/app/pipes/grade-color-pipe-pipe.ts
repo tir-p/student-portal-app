@@ -10,19 +10,17 @@ import { Pipe, PipeTransform } from '@angular/core';
   standalone: true
 })
 export class GradeColorPipe implements PipeTransform {
-  /**
-   * Transforms a letter grade into a Bootstrap CSS class for text color
-   * @param grade - Letter grade (A+, A, A-, B+, B, etc.)
-   * @returns Bootstrap text color class (text-success, text-primary, etc.)
-   */
   transform(grade: string): string {
-    // A grades = green (success)
-    if (['A+', 'A', 'A-'].includes(grade)) return 'text-success';
-    // B grades = blue (primary)
-    if (['B+', 'B', 'B-'].includes(grade)) return 'text-primary';
-    // C grades = yellow (warning)
-    if (['C+', 'C', 'C-'].includes(grade)) return 'text-warning';
-    // D and F grades = red (danger)
-    return 'text-danger';
+    if (!grade) return 'text-danger';
+
+    const g = grade.trim().toUpperCase(); // normalize input
+
+    if (['A+', 'A', 'A-'].includes(g)) return 'text-success';
+    if (['B+', 'B', 'B-'].includes(g)) return 'text-primary';
+    if (['C+', 'C', 'C-'].includes(g)) return 'text-warning';
+    if (['D+', 'D', 'D-'].includes(g)) return 'text-danger';
+    if (['F'].includes(g)) return 'text-danger';
+
+    return 'text-secondary'; // fallback for unexpected grades
   }
 }

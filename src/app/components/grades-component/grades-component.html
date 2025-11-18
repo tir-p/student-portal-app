@@ -1,4 +1,6 @@
 <div class="container py-4">
+
+  <!-- GPA Summary -->
   <div class="row mb-4">
     <div class="col-12">
       <div class="card border-0 shadow-sm">
@@ -18,63 +20,106 @@
     </div>
   </div>
 
-  @if (loading()) {
-    <div class="text-center py-5">
-      <div class="spinner-border text-primary" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
+  <!-- Loading Spinner -->
+  <div *ngIf="loading()" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
     </div>
-  } @else {
-    @for (semester of getSemesters(); track semester) {
-      <div class="card border-0 shadow-sm mb-4">
-        <div class="card-header bg-white py-3">
-          <div class="d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">{{ semester | semester }}</h5>
-            <span class="badge bg-primary">
-              GPA: {{ currentGPA()| number:'1.2-2' }}
-            </span>
-          </div>
+  </div>
+
+  <!-- Semesters -->
+  <div *ngIf="!loading()">
+    <div *ngFor="let semester of getSemesters()" class="card border-0 shadow-sm mb-4">
+      
+      <!-- Semester Header -->
+      <div class="card-header bg-white py-3">
+        <div class="d-flex justify-content-between align-items-center">
+          <h5 class="mb-0">{{ semester | semester }}</h5>
+          <span class="badge bg-primary">
+            GPA: {{ currentGPA() | number:'1.2-2' }}
+          </span>
         </div>
-        <div class="card-body p-0">
-          <div class="table-responsive">
-            <table class="table table-hover mb-0">
-              <thead class="table-light">
-                <tr>
-                  <th>Course Code</th>
-                  <th>Course Name</th>
-                  <th class="text-center">Credits</th>
-                  <th class="text-center">Score</th>
-                  <th class="text-center">Grade</th>
-                  <th class="text-center">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                @for (grade of getGradesForSemester(semester); track grade.id) {
+      </div>
+
+      <!-- Courses + Assignments Table -->
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-hover mb-0 align-middle">
+            <thead class="table-light">
+              <tr>
+                <th>Course Code</th>
+                <th>Course Name</th>
+                <th class="text-center">Credits</th>
+                <th class="text-center">Score</th>
+                <th class="text-center">Grade</th>
+                <th>Assignment</th>
+                <th class="text-center">Earned / Max</th>
+                <th class="text-center">Weight (%)</th>
+                <th class="text-center">Due Date</th>
+                <th class="text-center">Status</th>
+                <th>Feedback</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let grade of getGradesForSemester(semester)">
+                
+                <!-- Course with assignments -->
+                <ng-container *ngIf="grade.assignments && grade.assignments.length > 0; else noAssignments">
+                  <tr *ngFor="let a of grade.assignments; let i = index">
+                    <td *ngIf="i === 0" [attr.rowspan]="grade.assignments.length">
+                      <strong>{{ grade.courseCode }}</strong>
+                    </td>
+                    <td *ngIf="i === 0" [attr.rowspan]="grade.assignments.length">
+                      {{ grade.courseName }}
+                    </td>
+                    <td class="text-center" *ngIf="i === 0" [attr.rowspan]="grade.assignments.length">
+                      {{ grade.credits }}
+                    </td>
+                    <td class="text-center" *ngIf="i === 0" [attr.rowspan]="grade.assignments.length">
+                      {{ grade.totalScore | number:'1.0-0' }}%
+                    </td>
+                    <td class="text-center" *ngIf="i === 0" [attr.rowspan]="grade.assignments.length">
+                      <span class="fw-bold" [ngClass]="grade.letterGrade | gradeColor">
+                        {{ grade.letterGrade.toUpperCase() }}
+                      </span>
+                    </td>
+
+                    <!-- Assignment columns -->
+                    <td>{{ a.name }}</td>
+                    <td class="text-center">{{ a.earnedScore }}/{{ a.maxScore }}</td>
+                    <td class="text-center">{{ a.weight }}%</td>
+                    <td class="text-center">{{ a.dueDate | date:'dd MMM yyyy' }}</td>
+                    <td class="text-center">
+                      <span [ngClass]="a.status | lowercase" class="badge bg-info text-dark">
+                        {{ a.status }}
+                      </span>
+                    </td>
+                    <td>{{ a.feedback || '-' }}</td>
+                  </tr>
+                </ng-container>
+
+                <!-- Course with no assignments -->
+                <ng-template #noAssignments>
                   <tr>
                     <td><strong>{{ grade.courseCode }}</strong></td>
                     <td>{{ grade.courseName }}</td>
                     <td class="text-center">{{ grade.credits }}</td>
                     <td class="text-center">{{ grade.totalScore | number:'1.0-0' }}%</td>
                     <td class="text-center">
-                      <span class="fw-bold" [ngClass]="grade.letterGrade | gradeColor ">
+                      <span class="fw-bold" [ngClass]="grade.letterGrade | gradeColor">
                         {{ grade.letterGrade.toUpperCase() }}
                       </span>
                     </td>
-                    <td class="text-center">
-                      <a 
-                        routerLink="/grades/{{ grade.id }}"
-                        class="btn btn-sm btn-outline-primary"
-                      >
-                        View Details
-                      </a>
-                    </td>
+                    <td colspan="6" class="text-center text-muted">No assignments</td>
                   </tr>
-                }
-              </tbody>
-            </table>
-          </div>
+                </ng-template>
+
+              </ng-container>
+            </tbody>
+          </table>
         </div>
       </div>
-    }
-  }
+    </div>
+  </div>
+
 </div>

@@ -34,6 +34,9 @@ export class GradesComponent implements OnInit {
   // Signal to track which semester is currently selected (null = show all)
   selectedSemester = signal<string | null>(null);
 
+  expandedAssignmentsId = signal<number | null>(null);
+
+
   constructor(private gradeService: GradeService) {
     // Connect to service signals so we can use them in the template
     this.grades = this.gradeService.grades;
@@ -99,5 +102,11 @@ export class GradesComponent implements OnInit {
 
     // GPA = total points / total credits
     return totalCredits > 0 ? totalPoints / totalCredits : 0;
+  }
+
+    toggleAssignments(id: number): void {
+    this.expandedAssignmentsId.set(
+      this.expandedAssignmentsId() === id ? null : id
+    );
   }
 }
