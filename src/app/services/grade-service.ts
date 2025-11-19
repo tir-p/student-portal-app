@@ -92,6 +92,10 @@ export class GradeService {
             });
           }
         });
+
+        //testing
+        console.log(grades);
+
         this.gradesSignal.set(grades);
         this.loadingSignal.set(false);
       },
