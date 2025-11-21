@@ -30,8 +30,8 @@ export class ProfileComponent implements OnInit {
   private initializeForm(): void {
     const student = this.student();
     this.profileForm = this.fb.group({
-      firstName: [student?.firstName || '', [Validators.required, Validators.minLength(2)]],
-      lastName: [student?.lastName || '', [Validators.required, Validators.minLength(2)]],
+      firstName: [student?.firstName || '', [Validators.required, Validators.minLength(2), Validators.pattern(/^[A-Za-z]+$/)]],
+      lastName: [student?.lastName || '', [Validators.required, Validators.minLength(2), Validators.pattern(/^[A-Za-z]+$/)]],
       email: [student?.email || '', [Validators.required, Validators.email]],
       contactNumber: [student?.contactNumber || '', [Validators.required, ValidationUtil.phoneValidator()]],
       address: this.fb.group({

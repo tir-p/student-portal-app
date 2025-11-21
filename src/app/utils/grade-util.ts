@@ -26,14 +26,14 @@ export class GradeUtil {
    * Formula: Σ(grade points × credits) / Σ(credits)
    */
   static calculateGPA(grades: { letterGrade: string; credits: number }[]): number {
-    if (!grades || grades.length === 0) return 0;
+    if (!grades || grades.length === 0) return 0; // ✔ If grades is null, undefined, or empty → return 0 immediately (no data to calculate GPA).
 
     let totalPoints = 0;
     let totalCredits = 0;
 
     for (const grade of grades) {
-      const normalized = grade.letterGrade.trim().toUpperCase();
-      const points = this.GRADE_SCALE[normalized] ?? 0;
+      const normalized = grade.letterGrade.trim().toUpperCase(); //Convert grade to uppercase and remove spaces (" a " → "A"):
+      const points = this.GRADE_SCALE[normalized] ?? 0; // ?? 0 → If grade not found in GRADE_SCALE, assume 0 points.
 
       totalPoints += points * grade.credits;
       totalCredits += grade.credits;
